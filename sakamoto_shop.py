@@ -5,7 +5,15 @@ item={"banana":24}
 def business_mode():
     
     def add_item():
-        ask1=int(input("how many items you wanna add? "))
+        def add_item():   
+            while True:
+                
+                try:
+                    
+                    ask1=int(input("how many items you wanna add? "))
+                    break
+                except ValueError:
+                    print("please type a valid entry")
 
         while True:
             if len(item)==ask1:
