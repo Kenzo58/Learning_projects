@@ -3,17 +3,14 @@
 #the program will have two mode 1. Business , 2. Customer
 item={"banana":24}
 def business_mode():
-    
+
     def add_item():
-        def add_item():   
-            while True:
-                
-                try:
-                    
-                    ask1=int(input("how many items you wanna add? "))
-                    break
-                except ValueError:
-                    print("please type a valid entry")
+        while True:
+            try:
+                ask1=int(input("how many items you wanna add? "))
+                break
+            except ValueError:
+                print("please type a valid entry")
 
         while True:
             if len(item)==ask1:
