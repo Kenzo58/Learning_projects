@@ -5,20 +5,24 @@ item={"banana":24}
 def business_mode():
 
     def add_item():
+
         while True:
             try:
                 ask1=int(input("how many items you wanna add? "))
                 break
             except ValueError:
                 print("please type a valid entry")
-
-        while True:
-            if len(item)==ask1:
-                print(f"Your {ask1} items added to shop!")
-                break
+        added=0
+        while added<ask1:
             ask2=input("The name of the item you want to add :").lower()
-            ask3=int(input("enter the price of your item :"))
+            while True:
+                try:
+                    ask3=int(input("enter the price of your item :"))
+                    break
+                except ValueError:
+                    print("enter a valid entry.")
             item[ask2]=ask3
+            added+=1
     def view_items():
         print("......................................")
         for x,y in item.items():
@@ -58,7 +62,8 @@ def customer():
             if ask1 in item:
                 del item[ask1]
                 print(f"purchased {ask1.capitalize()}")
-                continue
+                if len(item)==0:
+                    print("Thats all. We are outta items")
             elif ask1=="nothing" or ask1=="exit":
                 print("Thanks for coming to Sakamoto shop!")
                 break
@@ -95,7 +100,7 @@ while True:
         ask1=input("Are you Mr Sakamoto or a customer? :").lower()
     except ValueError:
         print("write a valid input")
-    if ask1=="sakamoto" or ask1=="mr sakamoto":
+    if ask1 == "sakamoto" or ask1 == "mr sakamoto":
         business_mode()
     elif ask1=="customer":
         customer()
