@@ -1,9 +1,11 @@
 #shop program
 #the shop of Mr Sakamoto
 #the program will have two mode 1. Business , 2. Customer
-item={"banana":24}
+item={"banana":{"price":24,"quantity":40}
+      }
+profit=0
 def business_mode():
-
+    global profit,item
     def add_item():
 
         while True:
@@ -14,19 +16,22 @@ def business_mode():
                 print("please type a valid entry")
         added=0
         while added<ask1:
-            ask2=input("The name of the item you want to add :").lower()
+            name=input("The name of the item you want to add :").lower()
             while True:
                 try:
-                    ask3=int(input("enter the price of your item :"))
+                    price=int(input("enter the price of your item :"))
+                    qty=int(input(f"how many {name} :"))
                     break
                 except ValueError:
                     print("enter a valid entry.")
-            item[ask2]=ask3
+            print(f"Successfully added")
+            item[name]={"price":price,"quantity":qty}
             added+=1
     def view_items():
         print("......................................")
-        for x,y in item.items():
-            print(f"{x} - {y}")
+        print("------ Shop Inventory ------")
+        for name, data in item.items():
+            print(f"{name.capitalize()} Price :{data['price']} || Quantity :{data['quantity']}")
         print("......................................")
     while True:
         try:
@@ -47,31 +52,57 @@ def business_mode():
             break
         else:
             print("incorrect!")
+
+
+
 def customer():
+    global item,profit
+    my_cash=500
     def view_items():
         print("......................................")
-        for x,y in item.items():
-            print(f"Name :{x} - Price :{y}")
+        print("------ Shop Inventory ------")
+        for name, data in item.items():
+            print(f"{name.capitalize()} Price :{data['price']} || Quantity :{data['quantity']}")
         print("......................................")
     def buying():
+        global profit
+        nonlocal my_cash
+        cart={}
         while True:
             if len(item)==0:
                 print("sorry we are out of items")
                 break
-            ask1=input("enter the name of your item/if finished shoppinng right 'nothing','exit' :").lower()
-            if ask1 in item:
-                del item[ask1]
-                print(f"purchased {ask1.capitalize()}")
-                if len(item)==0:
-                    print("Thats all. We are outta items")
-            elif ask1=="nothing" or ask1=="exit":
-                print("Thanks for coming to Sakamoto shop!")
+            ask1=input("enter the name of your item// if finished shoppinng right 'nothing','exit' :").lower()
+            if ask1=="nothing" or ask1=="exit":
                 break
+            if ask1 in item:
+                ite=item[ask1]
+                if ite['quantity']==0:
+                    print("Out of stock")
+                    continue
+                while True:
+                    try:
+                        qty=int(input(f"how many {ask1.capitalize()}'s :"))
+                        break
+                    except ValueError:
+                        print("enter something eligable")
+                if qty>ite["quantity"]:
+                    print(f"we dont have that many {ask1.capitalize()}")
+                    continue
+                total_price=ite["price"]*qty
+                if my_cash<total_price:
+                    print("poor bring more money")
+                    continue
+                my_cash-=total_price
+                ite["quantity"]-=qty
+                profit+=total_price 
+                print(f"You purchased {ask1.capitalize()}s which was {total_price} BDT")
+                print(f"now you got only {my_cash} BDT")
+                    
+                if ite["quantity"]==0:
+                    del item[ask1]
             else:
-                print("Item unavailable!")
-                print("check our items again :")
-                for x,y in item.items():
-                    print(f"Name :{x} - Price: {y}")
+                print("not found")
     while True:
         try:
             print("......................................")
