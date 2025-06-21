@@ -81,8 +81,9 @@ def security_entering():
     print("........................................")
     print(f"{title} {name.capitalize()}, Welcome to security check")
     print("you can either type show or no")
-    ask1=input("Cops:  Show your bag or not :")
+    
     while True:
+        ask1=input("Cops:  Show your bag or not :")
         if ask1=="show":
             break
         elif ask1=="no":
