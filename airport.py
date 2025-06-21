@@ -67,7 +67,7 @@ def ticket_cutting():
             print(f"     Name :{name.capitalize()}")
             print(f"     Age :{age}")
             print(f"     Gender: {gender.capitalize()}")
-            print(f"Destination :{ask1.capitalize()}")
+            print(f"     Destination :{ask1.capitalize()}")
             print("     number of seats: 01")
             print(f"     Seat number: {seat_num}")
             break
