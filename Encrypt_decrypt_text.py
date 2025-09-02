@@ -21,8 +21,12 @@ class Credintial:
         else:
             self.data = {}
         while True:
-                self.username=input("Enter your username :")
-                if self.username.lower() in self.data:
+                self.username=input("Enter your username :").strip()
+                if not self.username:
+                    print("write something idiot")
+                elif len(self.username) <=3:
+                    print("Username cannot be less than 3 characters")
+                elif self.username.lower() in self.data:
                         print("User already exists")
                 else:
                     break
